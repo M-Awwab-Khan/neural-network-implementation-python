@@ -10,9 +10,9 @@ class Network:
         self.layers.append(layer)
 
     # set loss to use
-    def use(self, loss, loss_prime):
+    def use(self, loss, derivative_loss):
         self.loss = loss
-        self.loss_prime = loss_prime
+        self.derivative_loss = derivative_loss
 
 
     def predict(self, input_data):
@@ -25,7 +25,7 @@ class Network:
             # forward propagation
             output = input_data[i]
             for layer in self.layers:
-                output = layer.forward_propagation(output)
+                output = layer.forward_propagate(output)
             result.append(output)
 
         return result
@@ -41,7 +41,7 @@ class Network:
                 # forward propagation
                 output = x_train[j]
                 for layer in self.layers:
-                    output = layer.forward_propagation(output)
+                    output = layer.forward_propagate(output)
 
                 # compute loss
                 err += self.loss(y_train[j], output)

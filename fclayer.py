@@ -16,3 +16,14 @@ class FCLayer(Layer):
         self.output = np.dot(input_data, self.weights) + self.bias
 
         return self.output
+
+    def backward_propagate(self, output_error, learning_rate):
+        input_error = np.dot(output_error, self.weights.T)
+        weights_error = np.dot(self.input.T, output_error)
+        bias_error = output_error
+
+        # updating parameters
+        self.weights = self.weights - learning_rate * weights_error
+        self.bias = self.bias - learning_rate * bias_error
+
+        return input_error

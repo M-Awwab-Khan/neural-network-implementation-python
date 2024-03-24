@@ -13,3 +13,19 @@ class Network:
     def use(self, loss, loss_prime):
         self.loss = loss
         self.loss_prime = loss_prime
+
+
+    def predict(self, input_data):
+        # dimensions
+        samples = len(input_data)
+        result = []
+
+        # run network over all samples
+        for i in range(samples):
+            # forward propagation
+            output = input_data[i]
+            for layer in self.layers:
+                output = layer.forward_propagation(output)
+            result.append(output)
+
+        return result

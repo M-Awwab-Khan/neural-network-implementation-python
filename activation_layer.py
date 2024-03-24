@@ -10,7 +10,7 @@ class ActivationLayer(Layer):
     # returns the activated input
     def forward_propagate(self, input_data):
         self.input = input_data
-        self.ouput = self.activation(self.input)
+        self.output = self.activation(self.input)
 
         return self.output
 

@@ -29,3 +29,28 @@ class Network:
             result.append(output)
 
         return result
+
+    def fit(self, x_train, y_train, epochs, learning_rate):
+        # dimensions
+        samples = len(x_train)
+
+        for i in range(epochs):
+            err = 0
+
+            for j in range(samples):
+                # forward propagation
+                output = x_train[j]
+                for layer in self.layers:
+                    output = layer.forward_propagation(output)
+
+                # compute loss
+                err += self.loss(y_train[j], output)
+
+                # backward propagation
+                error = self.derivative_loss(y_train[j], output)
+                for layer in reversed(self.layers):
+                    error = layer.backward_propagate(error, learning_rate)
+
+            # calculate average error on all samples
+            err /= samples
+            print('epoch %d/%d   error=%f' % (i+1, epochs, err))
